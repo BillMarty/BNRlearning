@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>96568AF4-CE64-4124-970A-D19AE924E962</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TimesTwo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B57C7FB5-7587-4260-B8C1-B3121AB90653</key>
+		<string>https://github.com/BillMarty/BNRlearning.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TimesTwo/TimesTwo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B57C7FB5-7587-4260-B8C1-B3121AB90653</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/BillMarty/BNRlearning.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B57C7FB5-7587-4260-B8C1-B3121AB90653</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B57C7FB5-7587-4260-B8C1-B3121AB90653</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BNRlearning</string>
+		</dict>
+	</array>
+</dict>
+</plist>
