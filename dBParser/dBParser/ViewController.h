@@ -7,10 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "DBMScannerData.h"
 
 @interface ViewController : NSViewController
 
-@property (weak) IBOutlet NSTextField *dataFilePathOutlet;
+@property (weak) IBOutlet NSTextField *dataFilePathLabel;
+@property DBMScannerData *scannerData;
 
 @end
 

@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "loggingMacros.h"
+#import "DBMScannerData.h"
 
 @implementation ViewController
 
@@ -39,15 +40,13 @@
         if (result == NSFileHandlingPanelOKButton) {
             NSURL*  userFile = [[panel URLs] objectAtIndex:0];
             
-            // Open  the document.
+            //Load data from the userFile
             MyLog(@"userFile %@", userFile);
-            [self.dataFilePathOutlet setStringValue:userFile.lastPathComponent];
+            [self.dataFilePathLabel setStringValue:userFile.lastPathComponent];
+            self.scannerData = [DBMScannerData initWithContentsOfFile:userFile];
         }
         
     }];
-    
-    
-    
 }
 
 @end

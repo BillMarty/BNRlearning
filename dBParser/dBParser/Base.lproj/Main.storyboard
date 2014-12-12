@@ -684,7 +684,7 @@
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="asi-tH-V1x">
                                 <rect key="frame" x="146" y="561" width="316" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Data file path..." id="ipp-yv-IPO">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Data file URL..." id="ipp-yv-IPO">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -693,7 +693,7 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="dataFilePathOutlet" destination="asi-tH-V1x" id="L4f-rs-NhJ"/>
+                        <outlet property="dataFilePathLabel" destination="asi-tH-V1x" id="u2J-d0-eqy"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
