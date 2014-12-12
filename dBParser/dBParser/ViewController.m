@@ -41,6 +41,7 @@
             
             // Open  the document.
             MyLog(@"userFile %@", userFile);
+            [self.dataFilePathOutlet setStringValue:userFile.lastPathComponent];
         }
         
     }];
