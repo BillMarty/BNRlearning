@@ -32,6 +32,11 @@
     // Code snippet from: xcdoc://?url=developer.apple.com/library/mac/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/UsingtheOpenandSavePanels/UsingtheOpenandSavePanels.html#//apple_ref/doc/uid/TP40010672-CH4-SW1
 
     NSOpenPanel* panel = [NSOpenPanel openPanel];
+    panel.title = @"Choose a scanner data file";
+    panel.showsResizeIndicator = YES;
+    panel.canChooseDirectories = NO;
+    panel.canCreateDirectories = NO;
+    panel.allowsMultipleSelection = NO;
     
     // This method displays the panel and returns immediately.
     // The completion handler is called when the user selects an

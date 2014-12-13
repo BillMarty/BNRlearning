@@ -11,6 +11,7 @@
 @interface DBMScannerData : NSObject
 
 @property NSData *fileData;
+@property NSMutableArray *dbPackets;
 
 - (instancetype)init;
 + (DBMScannerData *)initWithContentsOfFile:(NSURL *)scannerDataFile;

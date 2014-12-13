@@ -8,6 +8,7 @@
 
 #import "DBMScannerData.h"
 #import "loggingMacros.h"
+#import "DBMImagePacket.h"
 
 @implementation DBMScannerData
 
@@ -16,6 +17,7 @@
     self = [super init];
     if (self) {
         LogMethod();
+        _dbPackets = [NSMutableArray new];
     }
     return self;
 }
@@ -37,6 +39,22 @@
     unsigned char packetType[4] = {0,0,0,0};
     [myData.fileData getBytes:packetType length:3];
     MyLog(@"packetType %s", packetType);
+    
+    const unsigned char *bytes = (const unsigned char *)myData.fileData.bytes;
+    
+    //Grab the packet.
+    switch(packetType[2]) {
+        case 'I': {
+            DBMImagePacket *anImagePacket = [DBMImagePacket packetWithBytesAtPtr:bytes];
+            MyLog(@"anImagePacket %@", anImagePacket);
+            //[myData.dbPackets addObject:anImagePacket];
+            }
+            break;
+            
+        default:
+            MyLog(@"!!Unrecognized packet type!!");
+            break;
+    }
     
     
     return myData;
