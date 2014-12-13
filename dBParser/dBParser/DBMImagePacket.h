@@ -56,6 +56,11 @@
 @property NSUInteger Qfactor;
 @property NSUInteger totalBytes;
 
+@property NSData *imageData;
+@property const void *finalBytePtr;
+
+
+- (instancetype)init;
 + (DBMImagePacket *)packetWithBytesAtPtr:(const unsigned char *)bytePtr;
 
 

@@ -23,6 +23,7 @@
 + (DBMImagePacket *)packetWithBytesAtPtr:(const unsigned char *)bytePtr {
     DBMImagePacket *anIP = [DBMImagePacket new];
     const unsigned char *bytePtrCopy = bytePtr;
+    const unsigned char *bytePtrCopy2 = bytePtr;
     
     //Read in the dBI header values
     anIP.packetHead1 = *bytePtr++;
@@ -59,6 +60,8 @@
     anIP.totalBytes = *intPtr++;
     MyLog(@"totalBytes = %lu", anIP.totalBytes);
     
+    bytePtr = (const unsigned char *)intPtr;
+    
     //Verify the checksum
     unsigned char checksum = 0;
     unsigned char i;
@@ -77,8 +80,18 @@
     
     //Is there data to read?
     if(anIP.totalBytes > 32) {
+        NSUInteger imageDataSize = anIP.totalBytes - 32;
+        anIP.imageData = [NSData dataWithBytes:bytePtr length:imageDataSize];
         
+        anIP.finalBytePtr = bytePtr + imageDataSize;
+        
+        //In the future, instantiate an image object here.
+        
+    } else {
+        anIP.finalBytePtr = bytePtr;
     }
+    
+    MyLog(@"initialBytePtr %p, finalBytePtr %p", bytePtrCopy2, anIP.finalBytePtr);
     
     return anIP;
 }
