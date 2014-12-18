@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DBMStatusPacket.h"
 
 @interface DBMImagePacket : NSObject
 
@@ -56,6 +57,7 @@
 @property NSUInteger Qfactor;
 @property NSUInteger totalBytes;
 
+@property DBMStatusPacket *statusPacket;
 @property NSData *imageData;
 @property const unsigned char *finalBytePtr;
 

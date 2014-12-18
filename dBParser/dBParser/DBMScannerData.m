@@ -42,17 +42,10 @@
     NSUInteger length = myData.fileData.length;
     myData.bytesEnd = myData.bytes + length;
     
-    do {
-
-        //What kind of packet do I see?
-//        unsigned char packetType[4] = {0,0,0,0};
-//        [myData.fileData getBytes:packetType length:3];
-//        MyLog(@"packetType %s", packetType);
-        
-        
-        
+    do {        
         //Grab the packet.
-        switch([myData parsePacketType]) {
+        unsigned char packetType = [myData parsePacketType];
+        switch(packetType) {
             case 'I':
             case 'J':
                 {
@@ -71,16 +64,20 @@
                     [myData.dbPackets addObject:aStatusPacket];
                 }
                 break;
-
+                
+            case 0:
+                //Can get here if there's whitespace at the end of the file ('\r\n').
+                break;
                 
             default:
-                MyLog(@"!!Unrecognized packet type!!");
+                MyLog(@"!!Unrecognized packet type %c!!", packetType);
                 break;
         }
         MyLog(@"bytes %p, endBytes %p", myData.bytes, myData.bytesEnd);
         
     } while(myData.bytes < myData.bytesEnd);
     
+    MyLog(@"Read a total of %lu packets.", (unsigned long)myData.dbPackets.count);
     
     return myData;
 }
@@ -132,7 +129,11 @@
         
     } while(!isFinished && (self.bytes < self.bytesEnd) );
     
-    MyLog(@"packetType %s", packetType);
+    if(!isFinished) {
+        MyLog(@"reached end of data file");
+    } else {
+        MyLog(@"packetType %s", packetType);
+    }
     
     return packetType[2];
 }

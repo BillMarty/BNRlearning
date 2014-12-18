@@ -8,6 +8,7 @@
 
 #import "DBMImagePacket.h"
 #import "loggingMacros.h"
+#import "DBMStatusPacket.h"
 
 @implementation DBMImagePacket
 
@@ -16,6 +17,8 @@
     self = [super init];
     if (self) {
         LogMethod();
+        _statusPacket = nil;
+        _imageData = nil;
     }
     return self;
 }
@@ -78,19 +81,29 @@
         MyLog(@"This is a volume blanking message.");
     }
     
-    //Is there data to read?
-    if(anIP.totalBytes > 32) {
-        NSUInteger imageDataSize = anIP.totalBytes - 32;
-        anIP.imageData = [NSData dataWithBytes:bytePtr length:imageDataSize];
-        
-        anIP.finalBytePtr = bytePtr + imageDataSize;
-        
-        //In the future, instantiate an image object here.
-        
+    //Is there a status packet to read?
+    if(anIP.packetType == 'J' && anIP.totalBytes > 32) {
+        anIP.statusPacket = [DBMStatusPacket packetWithBytesAtPtr:bytePtr];
+        bytePtr = anIP.statusPacket.finalBytePtr;
+        //Is there also a data packet to read?
+        NSUInteger headerPlusStatus = 32 + anIP.statusPacket.length;
+        if(anIP.totalBytes > headerPlusStatus) {
+            NSUInteger imageDataSize = anIP.totalBytes - headerPlusStatus;
+            anIP.imageData = [NSData dataWithBytes:bytePtr length:imageDataSize];
+            bytePtr += imageDataSize;
+        }
     } else {
-        anIP.finalBytePtr = bytePtr;
+        //We're an 'I' packet...
+        //Is there data to read?
+        if(anIP.totalBytes > 32) {
+            NSUInteger imageDataSize = anIP.totalBytes - 32;
+            anIP.imageData = [NSData dataWithBytes:bytePtr length:imageDataSize];
+            bytePtr += imageDataSize;
+            //In the future, instantiate an image object here.
+        }
     }
     
+    anIP.finalBytePtr = bytePtr;
     MyLog(@"initialBytePtr %p, finalBytePtr %p", bytePtrCopy2, anIP.finalBytePtr);
     
     return anIP;
