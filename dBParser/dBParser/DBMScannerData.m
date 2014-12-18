@@ -28,18 +28,19 @@
 + (DBMScannerData *)initWithContentsOfFile:(NSURL *)scannerDataFile;
 {
     DBMScannerData *myData = [DBMScannerData new];
+    NSData *fileData;       //local scope - discarded when we return.
     
     //Do some checking on the URL
     if (scannerDataFile.isFileURL) {
-        myData.fileData = [NSData dataWithContentsOfURL:scannerDataFile];
+        fileData = [NSData dataWithContentsOfURL:scannerDataFile];
     } else {
         MyLog(@"!!URL is not a file!! %@", scannerDataFile);
         
         return nil;
     }
     
-    myData.bytes = (const unsigned char *)myData.fileData.bytes;
-    NSUInteger length = myData.fileData.length;
+    myData.bytes = (const unsigned char *)fileData.bytes;
+    NSUInteger length = fileData.length;
     myData.bytesEnd = myData.bytes + length;
     
     do {        
