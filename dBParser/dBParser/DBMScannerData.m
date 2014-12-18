@@ -9,6 +9,7 @@
 #import "DBMScannerData.h"
 #import "loggingMacros.h"
 #import "DBMImagePacket.h"
+#import "DBMStatusPacket.h"
 
 @implementation DBMScannerData
 
@@ -35,7 +36,7 @@
         return nil;
     }
     
-    //What kind of dBobject do I see?
+    //What kind of packet do I see?
     unsigned char packetType[4] = {0,0,0,0};
     [myData.fileData getBytes:packetType length:3];
     MyLog(@"packetType %s", packetType);
@@ -50,6 +51,14 @@
             //[myData.dbPackets addObject:anImagePacket];
             }
             break;
+            
+        case '%': {
+            DBMStatusPacket *aStatusPacket = [DBMStatusPacket packetWithBytesAtPtr:bytes];
+            MyLog(@"aStatusPacket %@", aStatusPacket);
+            //add it to dbPackets array...
+            }
+            break;
+
             
         default:
             MyLog(@"!!Unrecognized packet type!!");

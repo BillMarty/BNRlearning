@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		ADD52F661A3B674500797D27 /* DBMScannerData.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD52F651A3B674500797D27 /* DBMScannerData.m */; };
 		ADD52F691A3BAD9A00797D27 /* DBMImagePacket.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD52F681A3BAD9A00797D27 /* DBMImagePacket.m */; };
+		ADD52F6C1A420AE900797D27 /* DBMStatusPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD52F6B1A420AE900797D27 /* DBMStatusPacket.m */; };
 		ADE7645D1A3A607B008D12BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE7645C1A3A607B008D12BA /* AppDelegate.m */; };
 		ADE7645F1A3A607B008D12BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE7645E1A3A607B008D12BA /* main.m */; };
 		ADE764621A3A607B008D12BA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE764611A3A607B008D12BA /* ViewController.m */; };
@@ -33,6 +34,8 @@
 		ADD52F651A3B674500797D27 /* DBMScannerData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBMScannerData.m; sourceTree = "<group>"; };
 		ADD52F671A3BAD9A00797D27 /* DBMImagePacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMImagePacket.h; sourceTree = "<group>"; };
 		ADD52F681A3BAD9A00797D27 /* DBMImagePacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBMImagePacket.m; sourceTree = "<group>"; };
+		ADD52F6A1A420AE900797D27 /* DBMStatusPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMStatusPacket.h; sourceTree = "<group>"; };
+		ADD52F6B1A420AE900797D27 /* DBMStatusPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBMStatusPacket.m; sourceTree = "<group>"; };
 		ADE764561A3A607B008D12BA /* dBParser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dBParser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE7645A1A3A607B008D12BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADE7645B1A3A607B008D12BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,6 +85,8 @@
 			children = (
 				ADD52F641A3B674500797D27 /* DBMScannerData.h */,
 				ADD52F651A3B674500797D27 /* DBMScannerData.m */,
+				ADD52F6A1A420AE900797D27 /* DBMStatusPacket.h */,
+				ADD52F6B1A420AE900797D27 /* DBMStatusPacket.m */,
 				ADD52F671A3BAD9A00797D27 /* DBMImagePacket.h */,
 				ADD52F681A3BAD9A00797D27 /* DBMImagePacket.m */,
 			);
@@ -260,6 +265,7 @@
 				ADE764651A3A607B008D12BA /* Document.m in Sources */,
 				ADE764621A3A607B008D12BA /* ViewController.m in Sources */,
 				ADD52F691A3BAD9A00797D27 /* DBMImagePacket.m in Sources */,
+				ADD52F6C1A420AE900797D27 /* DBMStatusPacket.m in Sources */,
 				ADE7645F1A3A607B008D12BA /* main.m in Sources */,
 				ADE7645D1A3A607B008D12BA /* AppDelegate.m in Sources */,
 			);
