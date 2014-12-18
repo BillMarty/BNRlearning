@@ -57,7 +57,7 @@
 @property NSUInteger totalBytes;
 
 @property NSData *imageData;
-@property const void *finalBytePtr;
+@property const unsigned char *finalBytePtr;
 
 
 - (instancetype)init;

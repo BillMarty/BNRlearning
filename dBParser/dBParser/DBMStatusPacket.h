@@ -65,7 +65,7 @@
 @property NSUInteger stallCount;
 @property NSUInteger scanCount;
 
-@property const void *finalBytePtr;
+@property const unsigned char *finalBytePtr;
 
 
 

@@ -72,7 +72,7 @@
         MyLog(@"checksum verified :-)");
     }
     
-    aSP.finalBytePtr = (const void *)uintPtr;
+    aSP.finalBytePtr = (const unsigned char *)uintPtr;
     
     MyLog(@"initialBytePtr %p, finalBytePtr %p", bytePtrCopy2, aSP.finalBytePtr);
     

@@ -12,9 +12,12 @@
 
 @property NSData *fileData;
 @property NSMutableArray *dbPackets;
+@property const unsigned char *bytes;
+@property const unsigned char *bytesEnd;
 
 - (instancetype)init;
 + (DBMScannerData *)initWithContentsOfFile:(NSURL *)scannerDataFile;
+- (const unsigned char)parsePacketType;
 
 
 @end
