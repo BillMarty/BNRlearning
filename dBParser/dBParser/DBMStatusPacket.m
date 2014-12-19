@@ -30,6 +30,8 @@
     aSP.BChar = *bytePtr++;
     aSP.pctChar = *bytePtr++;
     MyLog(@"packetType %c%c%c", (unsigned char)aSP.dChar, (unsigned char)aSP.BChar, (unsigned char)aSP.pctChar);
+    if(aSP.pctChar == '%') { aSP.packetTypeString = @"dB%"; }
+    
     aSP.checksum = *bytePtr++;
     
     const unsigned int *uintPtr = (const unsigned int*)bytePtr;
@@ -74,9 +76,15 @@
     
     aSP.finalBytePtr = (const unsigned char *)uintPtr;
     
-    MyLog(@"initialBytePtr %p, finalBytePtr %p", bytePtrCopy2, aSP.finalBytePtr);
+    MyLog(@"Status Packet: initialBytePtr %p, finalBytePtr %p", bytePtrCopy2, aSP.finalBytePtr);
     
     return aSP;
+}
+
+- (NSString *)description {
+    NSString *statusPacketDescription = [NSString stringWithFormat:@"scanner (0006)%lx, scanCount %ld", self.myBDA, self.scanCount];
+    
+    return statusPacketDescription;
 }
 
 

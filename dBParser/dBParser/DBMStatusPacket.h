@@ -66,11 +66,13 @@
 @property NSUInteger scanCount;
 
 @property const unsigned char *finalBytePtr;
+@property NSString *packetTypeString;
 
 
 
 - (instancetype)init;
 + (DBMStatusPacket *)packetWithBytesAtPtr:(const unsigned char *)bytePtr;
+- (NSString *)description;
 
 @end
 
