@@ -67,5 +67,4 @@
 + (DBMImagePacket *)packetWithBytesAtPtr:(const unsigned char *)bytePtr;
 - (NSString *)description;
 
-
 @end

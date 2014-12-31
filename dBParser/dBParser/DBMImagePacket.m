@@ -25,61 +25,10 @@
 
 + (DBMImagePacket *)packetWithBytesAtPtr:(const unsigned char *)bytePtr {
     DBMImagePacket *anIP = [DBMImagePacket new];
-    const unsigned char *bytePtrCopy = bytePtr;
-    const unsigned char *bytePtrCopy2 = bytePtr;
+    const unsigned char *bytePtrCopy2 = bytePtr;    //Used only in log statement.
     
-    //Read in the dBI header values
-    anIP.packetHead1 = *bytePtr++;
-    anIP.packetHead2 = *bytePtr++;
-    anIP.packetType = *bytePtr++;
-    MyLog(@"packetType %c%c%c", (unsigned char)anIP.packetHead1, (unsigned char)anIP.packetHead2, (unsigned char)anIP.packetType);
-    
-    anIP.checksum = *bytePtr++;
-    
-    const unsigned short *shortPtr = (const unsigned short*)bytePtr;
-    anIP.dim1 = *shortPtr++;
-    anIP.dim2 = *shortPtr++;
-    anIP.dim3 = *shortPtr++;
-    anIP.dim4 = *shortPtr++;
-    MyLog(@"dims %lu, %lu, %lu, %lu", anIP.dim1, anIP.dim2, anIP.dim3, anIP.dim4);
-    anIP.axialOffset = *shortPtr++;
-    anIP.axialResolution = *shortPtr++;
-    anIP.phiResolution = *shortPtr++;
-    anIP.sliceResolution = *shortPtr++;
-    anIP.timeResolution = *shortPtr++;
-    
-    bytePtr = (const unsigned char *)shortPtr;
-    anIP.codingScheme = *bytePtr++;
-    anIP.includedWalls = *bytePtr++;
-    
-    shortPtr = (const unsigned short *)bytePtr;
-    anIP.volume = *shortPtr++;
-    
-    bytePtr = (const unsigned char *)shortPtr;
-    anIP.gainSetting = *bytePtr++;
-    anIP.Qfactor = *bytePtr++;
-    
-    const unsigned int *intPtr = (const unsigned int *)bytePtr;
-    anIP.totalBytes = *intPtr++;
-    MyLog(@"totalBytes = %lu", anIP.totalBytes);
-    
-    bytePtr = (const unsigned char *)intPtr;
-    
-    //Verify the checksum
-    unsigned char checksum = 0;
-    unsigned char i;
-    for(i=0; i<32; i++) {
-        checksum += *bytePtrCopy++;
-    }
-    if(checksum) {
-        MyLog(@"!!checksum error!!");
-    } else {
-        MyLog(@"checksum verified :-)");
-    }
-    
-    if( (anIP.totalBytes == 32) && (anIP.volume == BLANKING_VOLUME) ) {
-        MyLog(@"This is a volume blanking message.");
-    }
+    //Experiment: can I call an instance method here?
+    bytePtr = [anIP readDBIHeader:bytePtr];
     
     //Is there a status packet to read?
     if(anIP.packetType == 'J' && anIP.totalBytes > 32) {
@@ -120,6 +69,67 @@
     }
     
     return imagePacketDescription;
+}
+
+- (const unsigned char *)readDBIHeader:(const unsigned char *)bytePtr {
+    const unsigned char *bytePtrCopy = bytePtr;     //Used in checksum calculation.
+    
+    LogMethod();
+    
+    //Read in the dBI header values
+    self.packetHead1 = *bytePtr++;
+    self.packetHead2 = *bytePtr++;
+    self.packetType = *bytePtr++;
+    MyLog(@"packetType %c%c%c", (unsigned char)self.packetHead1, (unsigned char)self.packetHead2, (unsigned char)self.packetType);
+    
+    self.checksum = *bytePtr++;
+    
+    const unsigned short *shortPtr = (const unsigned short*)bytePtr;
+    self.dim1 = *shortPtr++;
+    self.dim2 = *shortPtr++;
+    self.dim3 = *shortPtr++;
+    self.dim4 = *shortPtr++;
+    MyLog(@"dims %lu, %lu, %lu, %lu", self.dim1, self.dim2, self.dim3, self.dim4);
+    self.axialOffset = *shortPtr++;
+    self.axialResolution = *shortPtr++;
+    self.phiResolution = *shortPtr++;
+    self.sliceResolution = *shortPtr++;
+    self.timeResolution = *shortPtr++;
+    
+    bytePtr = (const unsigned char *)shortPtr;
+    self.codingScheme = *bytePtr++;
+    self.includedWalls = *bytePtr++;
+    
+    shortPtr = (const unsigned short *)bytePtr;
+    self.volume = *shortPtr++;
+    
+    bytePtr = (const unsigned char *)shortPtr;
+    self.gainSetting = *bytePtr++;
+    self.Qfactor = *bytePtr++;
+    
+    const unsigned int *intPtr = (const unsigned int *)bytePtr;
+    self.totalBytes = *intPtr++;
+    MyLog(@"totalBytes = %lu", self.totalBytes);
+    
+    bytePtr = (const unsigned char *)intPtr;
+    
+    //Verify the checksum
+    unsigned char checksum = 0;
+    unsigned char i;
+    for(i=0; i<32; i++) {
+        checksum += *bytePtrCopy++;
+    }
+    if(checksum) {
+        MyLog(@"!!checksum error!!");
+    } else {
+        MyLog(@"checksum verified :-)");
+    }
+    
+    if( (self.totalBytes == 32) && (self.volume == BLANKING_VOLUME) ) {
+        MyLog(@"This is a volume blanking message.");
+    }
+    
+    return bytePtr;
 }
 
 @end
