@@ -57,7 +57,6 @@
 @property NSUInteger Qfactor;
 @property NSUInteger totalBytes;
 
-@property DBMStatusPacket *statusPacket;
 @property NSData *imageData;
 @property const unsigned char *finalBytePtr;
 @property NSString *packetTypeString;
@@ -65,6 +64,7 @@
 
 - (instancetype)init;
 + (DBMImagePacket *)packetWithBytesAtPtr:(const unsigned char *)bytePtr;
+- (const unsigned char *)readDBIHeader:(const unsigned char *)bytePtr;
 - (NSString *)description;
 
 @end

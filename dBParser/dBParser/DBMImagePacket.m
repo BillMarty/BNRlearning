@@ -17,7 +17,6 @@
     self = [super init];
     if (self) {
         LogMethod();
-        _statusPacket = nil;
         _imageData = nil;
     }
     return self;
@@ -27,48 +26,24 @@
     DBMImagePacket *anIP = [DBMImagePacket new];
     const unsigned char *bytePtrCopy2 = bytePtr;    //Used only in log statement.
     
-    //Experiment: can I call an instance method here?
     bytePtr = [anIP readDBIHeader:bytePtr];
     
-    //Is there a status packet to read?
-    if(anIP.packetType == 'J' && anIP.totalBytes > 32) {
-        anIP.packetTypeString = @"dBJ";
-        anIP.statusPacket = [DBMStatusPacket packetWithBytesAtPtr:bytePtr];
-        bytePtr = anIP.statusPacket.finalBytePtr;
-        //Is there also a data packet to read?
-        NSUInteger headerPlusStatus = 32 + anIP.statusPacket.length;
-        if(anIP.totalBytes > headerPlusStatus) {
-            NSUInteger imageDataSize = anIP.totalBytes - headerPlusStatus;
-            anIP.imageData = [NSData dataWithBytes:bytePtr length:imageDataSize];
-            bytePtr += imageDataSize;
-        }
-    } else {
-        //We're an 'I' packet...
-        anIP.packetTypeString = @"dBI";
-        //Is there data to read?
-        if(anIP.totalBytes > 32) {
-            NSUInteger imageDataSize = anIP.totalBytes - 32;
-            anIP.imageData = [NSData dataWithBytes:bytePtr length:imageDataSize];
-            bytePtr += imageDataSize;
-            //In the future, instantiate an image object here.
-        }
+    //Assume we're an 'I' packet...
+    NSAssert(anIP.packetType == 'I', @"DBMImagePacket type error: not 'I'");
+    anIP.packetTypeString = @"dBI";
+    
+    //Is there data to read?
+    if(anIP.totalBytes > 32) {
+        NSUInteger imageDataSize = anIP.totalBytes - 32;
+        anIP.imageData = [NSData dataWithBytes:bytePtr length:imageDataSize];
+        bytePtr += imageDataSize;
+        //In the future, instantiate an image object here.
     }
     
     anIP.finalBytePtr = bytePtr;
     MyLog(@"Image Packet: initialBytePtr %p, finalBytePtr %p", bytePtrCopy2, anIP.finalBytePtr);
     
     return anIP;
-}
-
-- (NSString *)description {
-    NSString *imagePacketDescription;
-    if( (self.totalBytes == 32) && (self.volume == BLANKING_VOLUME) ) {
-        imagePacketDescription = @"Volume blanking message.";
-    } else {
-        imagePacketDescription = [NSString stringWithFormat:@"dims: %ld %ld %ld %ld, vol %ld, size %ld", self.dim1, self.dim2, self.dim3, self.dim4, self.volume, self.totalBytes];
-    }
-    
-    return imagePacketDescription;
 }
 
 - (const unsigned char *)readDBIHeader:(const unsigned char *)bytePtr {
@@ -130,6 +105,17 @@
     }
     
     return bytePtr;
+}
+
+- (NSString *)description {
+    NSString *imagePacketDescription;
+    if( (self.totalBytes == 32) && (self.volume == BLANKING_VOLUME) ) {
+        imagePacketDescription = @"Volume blanking message.";
+    } else {
+        imagePacketDescription = [NSString stringWithFormat:@"dims: %ld %ld %ld %ld, vol %ld, size %ld", self.dim1, self.dim2, self.dim3, self.dim4, self.volume, self.totalBytes];
+    }
+    
+    return imagePacketDescription;
 }
 
 @end

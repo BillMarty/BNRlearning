@@ -9,6 +9,7 @@
 #import "DBMScannerData.h"
 #import "loggingMacros.h"
 #import "DBMImagePacket.h"
+#import "DBMUnionPacket.h"
 #import "DBMStatusPacket.h"
 
 @implementation DBMScannerData
@@ -48,12 +49,20 @@
         unsigned char packetType = [myData parsePacketType];
         switch(packetType) {
             case 'I':
-            case 'J':
                 {
                     DBMImagePacket *anImagePacket = [DBMImagePacket packetWithBytesAtPtr:myData.bytes];
                     MyLog(@"anImagePacket %@", anImagePacket);
                     myData.bytes = anImagePacket.finalBytePtr;
                     [myData.dbPackets addObject:anImagePacket];
+                }
+                break;
+                
+            case 'J':
+                {
+                    DBMUnionPacket *aUnionPacket = [DBMUnionPacket packetWithBytesAtPtr:myData.bytes];
+                    MyLog(@"aUnionPacket %@", aUnionPacket);
+                    myData.bytes = aUnionPacket.finalBytePtr;
+                    [myData.dbPackets addObject:aUnionPacket];
                 }
                 break;
                 

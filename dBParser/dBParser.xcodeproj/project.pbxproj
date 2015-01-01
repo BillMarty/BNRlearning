@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD001BE51A54BF2D00F6C9E6 /* DBMUnionPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = AD001BE41A54BF2D00F6C9E6 /* DBMUnionPacket.m */; };
 		ADD52F661A3B674500797D27 /* DBMScannerData.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD52F651A3B674500797D27 /* DBMScannerData.m */; };
 		ADD52F691A3BAD9A00797D27 /* DBMImagePacket.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD52F681A3BAD9A00797D27 /* DBMImagePacket.m */; };
 		ADD52F6C1A420AE900797D27 /* DBMStatusPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD52F6B1A420AE900797D27 /* DBMStatusPacket.m */; };
@@ -30,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD001BE31A54BF2D00F6C9E6 /* DBMUnionPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMUnionPacket.h; sourceTree = "<group>"; };
+		AD001BE41A54BF2D00F6C9E6 /* DBMUnionPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBMUnionPacket.m; sourceTree = "<group>"; };
 		ADD52F641A3B674500797D27 /* DBMScannerData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMScannerData.h; sourceTree = "<group>"; };
 		ADD52F651A3B674500797D27 /* DBMScannerData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBMScannerData.m; sourceTree = "<group>"; };
 		ADD52F671A3BAD9A00797D27 /* DBMImagePacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMImagePacket.h; sourceTree = "<group>"; };
@@ -89,6 +92,8 @@
 				ADD52F6B1A420AE900797D27 /* DBMStatusPacket.m */,
 				ADD52F671A3BAD9A00797D27 /* DBMImagePacket.h */,
 				ADD52F681A3BAD9A00797D27 /* DBMImagePacket.m */,
+				AD001BE31A54BF2D00F6C9E6 /* DBMUnionPacket.h */,
+				AD001BE41A54BF2D00F6C9E6 /* DBMUnionPacket.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				ADD52F6C1A420AE900797D27 /* DBMStatusPacket.m in Sources */,
 				ADE7645F1A3A607B008D12BA /* main.m in Sources */,
 				ADE7645D1A3A607B008D12BA /* AppDelegate.m in Sources */,
+				AD001BE51A54BF2D00F6C9E6 /* DBMUnionPacket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
