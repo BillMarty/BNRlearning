@@ -11,6 +11,7 @@
 #import "DBMImagePacket.h"
 #import "DBMUnionPacket.h"
 #import "DBMStatusPacket.h"
+#import "DBMStringPacket.h"
 
 @implementation DBMScannerData
 
@@ -72,6 +73,15 @@
                     MyLog(@"aStatusPacket %@", aStatusPacket);
                     myData.bytes = aStatusPacket.finalBytePtr;
                     [myData.dbPackets addObject:aStatusPacket];
+                }
+                break;
+                
+            case '<':
+                {
+                    DBMStringPacket *aStringPacket = [DBMStringPacket packetWithBytesAtPtr:myData.bytes];
+                    MyLog(@"aStringPacket %@", aStringPacket);
+                    myData.bytes = aStringPacket.finalBytePtr;
+                    [myData.dbPackets addObject:aStringPacket];
                 }
                 break;
                 
