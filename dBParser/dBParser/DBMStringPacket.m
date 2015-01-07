@@ -29,7 +29,9 @@
     aSP.packetHead2 = *bytePtr++;
     aSP.packetType = *bytePtr++;
     
+    //Assume we're a string packet.
     NSAssert(aSP.packetType == '<', @"!!String packetType error: %lu!!", aSP.packetType);
+    aSP.packetTypeString = @"dB<";
     
     const unsigned char *strStart = bytePtr;
     NSUInteger length;
@@ -43,7 +45,7 @@
     }
     
     if(endFound) {
-        aSP.string = [[NSString new] initWithBytes:strStart length:length encoding:NSASCIIStringEncoding];
+        aSP.string = [[NSString alloc] initWithBytes:strStart length:length encoding:NSASCIIStringEncoding];
     }
     
     aSP.finalBytePtr = bytePtr;
