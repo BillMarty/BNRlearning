@@ -97,28 +97,141 @@
         MyLog(@"%@", de.description);
 
     self.dim4 = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"dim4";
+        de.value = self.dim4;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.dim4];
+        de.unitsString = @"frames";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     MyLog(@"dims %lu, %lu, %lu, %lu", self.dim1, self.dim2, self.dim3, self.dim4);
     self.axialOffset = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"axialOffset";
+        de.value = self.axialOffset;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.axialOffset];
+        de.unitsString = @"micrometers";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     self.axialResolution = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"axialResolution";
+        de.value = self.axialResolution;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.axialResolution];
+        de.unitsString = @"100 nanometers";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     self.phiResolution = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"phiResolution";
+        de.value = self.phiResolution;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.phiResolution];
+        de.unitsString = @"microradians";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     self.sliceResolution = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"sliceResolution";
+        de.value = self.sliceResolution;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.sliceResolution];
+        de.unitsString = @"micrometers";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     self.timeResolution = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"timeResolution";
+        de.value = self.timeResolution;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.timeResolution];
+        de.unitsString = @"milliseconds";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
     
     bytePtr = (const unsigned char *)shortPtr;
     self.codingScheme = *bytePtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"codingScheme";
+        de.value = self.codingScheme;
+        switch(self.codingScheme) {
+            case 2:
+                de.valueString = @"RAW12BIT";
+                break;
+            case 3:
+                de.valueString = @"RAW16IT";
+                break;
+            case 5:
+                de.valueString = @"ENVELOPED16BIT";
+                break;
+            case 1:
+            case 4:
+            case 6:
+                de.valueString = @"UNIMPLEMENTED";
+                break;
+            default:
+                de.valueString = @"UNRECOGNIZED";
+                break;
+        }
+        de.unitsString = nil;
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     self.includedWalls = *bytePtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"includedWalls";
+        de.value = self.includedWalls;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.includedWalls];
+        de.unitsString = @"# of regions";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
     
     shortPtr = (const unsigned short *)bytePtr;
     self.volume = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"volume";
+        de.value = self.volume;
+        if(self.volume > 4095) {
+            de.valueString = @"blanking";
+            de.unitsString = nil;
+        } else {
+            de.valueString = [NSString stringWithFormat:@"%ld", self.volume];
+            de.unitsString = @"ml";
+        }
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
     
     bytePtr = (const unsigned char *)shortPtr;
     self.gainSetting = *bytePtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"gainSetting";
+        de.value = self.gainSetting;
+        de.valueString = [NSString stringWithFormat:@"0x%lx", self.gainSetting];
+        de.unitsString = @"2 bits each: delay/slope/gain";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     self.Qfactor = *bytePtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"Qfactor";
+        de.value = self.Qfactor;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.Qfactor];
+        de.unitsString = @"%";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
     
     const unsigned int *intPtr = (const unsigned int *)bytePtr;
     self.totalBytes = *intPtr++;
-    MyLog(@"totalBytes = %lu", self.totalBytes);
-    
+        de = [DBMDisplayElement new];
+        de.keyString = @"totalBytes";
+        de.value = self.totalBytes;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.totalBytes];
+        de.unitsString = @"bytes";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     bytePtr = (const unsigned char *)intPtr;
     
     //Verify the checksum
