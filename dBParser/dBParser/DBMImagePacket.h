@@ -60,6 +60,7 @@
 @property NSData *imageData;
 @property const unsigned char *finalBytePtr;
 @property NSString *packetTypeString;
+@property NSMutableArray *displayElementArray;
 
 
 - (instancetype)init;

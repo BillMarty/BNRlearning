@@ -9,6 +9,7 @@
 #import "DBMImagePacket.h"
 #import "loggingMacros.h"
 #import "DBMStatusPacket.h"
+#import "DBMDisplayElement.h"
 
 @implementation DBMImagePacket
 
@@ -18,6 +19,7 @@
     if (self) {
         LogMethod();
         _imageData = nil;
+        _displayElementArray = [NSMutableArray new];
     }
     return self;
 }
@@ -58,11 +60,42 @@
     MyLog(@"packetType %c%c%c", (unsigned char)self.packetHead1, (unsigned char)self.packetHead2, (unsigned char)self.packetType);
     
     self.checksum = *bytePtr++;
+        DBMDisplayElement *de = [DBMDisplayElement new];
+        de.keyString = @"checksum";
+        de.value = self.checksum;
+        de.valueString = [NSString stringWithFormat:@"0x%lx", self.checksum];
+        de.unitsString = nil;
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
     
     const unsigned short *shortPtr = (const unsigned short*)bytePtr;
     self.dim1 = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"dim1";
+        de.value = self.dim1;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.dim1];
+        de.unitsString = @"bytes";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+    
     self.dim2 = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"dim2";
+        de.value = self.dim2;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.dim2];
+        de.unitsString = @"scanlines";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     self.dim3 = *shortPtr++;
+        de = [DBMDisplayElement new];
+        de.keyString = @"dim3";
+        de.value = self.dim3;
+        de.valueString = [NSString stringWithFormat:@"%ld", self.dim3];
+        de.unitsString = @"planes";
+        [self.displayElementArray addObject:de];
+        MyLog(@"%@", de.description);
+
     self.dim4 = *shortPtr++;
     MyLog(@"dims %lu, %lu, %lu, %lu", self.dim1, self.dim2, self.dim3, self.dim4);
     self.axialOffset = *shortPtr++;
